@@ -3,4 +3,5 @@ Project directory have requirements.txt and procedure.ppt for running the projec
 You have to run python manage.py in project\pizzeria directory that contains manage.py file.
 
 admin id:admin
+
 admin password:admin1234
