@@ -1,0 +1,25 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block title_block %}Pizzeria | Home{% endblock title_block %}
+{% block body_block %}
+    <section id="showcase">
+      <div class="container-cus">
+          <h1>
+              Feeling Hungary?<br>
+              Create the best pizzas with your choice of ingredients.
+          </h1>
+      </div>
+  </section>
+    <div class="container">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1>You can be a Masterchef</h1>
+          <p class="lead text-muted">Create a pizza in your style with a wide variety of choices from bases to ingredients and toppings.</p>
+          <p>
+            <a href="{% url "home_app:create" %}" class="btn btn-primary my-2">Create Pizza</a>
+            <a href="{% url "home_app:created_pizza_list" %}" class="btn btn-warning my-2">Show All Pizzas</a>
+          </p>
+        </div>
+      </section>
+    
+    {% endblock body_block %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title_block %}Pizzeria | Edit{% endblock title_block %}
+{% block body_block %}
+{% if alert %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Pizza edited!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+{% if alert_topp_emty %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Ops no toppings added!</strong> Choose some toppings.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+<div class="container">
+    <h1 style="text-align:center" class="my-2">Do Changes</h1>
+    <form method="POST" action="{% url "home_app:edit" pk %}">
+    {% csrf_token %}
+        <div>
+            <div class="form-group">
+                <label for="inputname">
+                    <h4>Your Name</h4>
+                </label>
+                <input type="text" class="form-control" id="inputname" name="name" value="{{creator}}" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4 class="my-2">Pizza Type</h4>
+                <div class="">
+                    <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio"  id="inlineRadio1"
+                            value="Regular" name="pizza_type" required>
+                        <label class="form-check-label" for="inlineRadio1">Regular</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio"  id="inlineRadio2"
+                            value="Square" name="pizza_type" required>
+                        <label class="form-check-label" for="inlineRadio2">Square</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group my-3">
+                    <label for="exampleFormControlSelect1">
+                        <h4>Pizza Size</h4>
+                    </label>
+                    <select class="form-control" id="exampleFormControlSelect1" name="pizza_size" required>
+                        {% for sizes in size_list %}
+                        <option>{{sizes.pizza_size}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <h4>Add Toppings</h4>
+        {% for toppings in toppings_list %}
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{toppings.pizza_toppings}}" name="{{toppings.pizza_toppings}}">
+            <label class="form-check-label" for="inlineCheckbox1">{{toppings.pizza_toppings}}</label>
+        </div>
+        {% endfor %}
+        
+        <div></div>
+        <button type="submit" class="btn btn-primary my-2">Edit!</button>
+    </form>
+    <form method="POST" action="{% url "home_app:delete" pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger my-1">Delete!</button>
+    </form>
+    <a href="{% url "home_app:created_pizza_list" %}" class="btn btn-warning my-2">Show All Pizzas</a>
+</div>
+{% endblock body_block %}

@@ -1,0 +1,60 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block title_block %}Pizzeria | Pizza List{% endblock title_block %}
+{% block body_block %}
+    <div class="container">
+    <form method="POST" action="{% url "home_app:created_pizza_list" %}">
+    {% csrf_token %}
+    <div class="row mt-3">
+      <div class="col">
+        <label for="exampleFormControlSelect1"><h4>Pizza Type</h4></label>
+        <select class="form-control" id="exampleFormControlSelect1" name="pizza_type">
+          <option>All</option>
+          <option>Regular</option>
+          <option>Square</option>
+
+        </select>
+      </div>
+      <div class="col">
+        <label for="exampleFormControlSelect1"><h4>Pizza Size</h4></label>
+        <select class="form-control" id="exampleFormControlSelect1" name="pizza_size">
+          <option>All</option>
+          {% for sizes in size_list %}
+          <option>{{sizes.pizza_size}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary" style="margin-top:50px;">Filter</button>
+      </div>
+    </div>
+
+  </form>
+      {% if access_pz_list %}
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Creator</th>
+            <th scope="col">Pizza Type</th>
+            <th scope="col">Pizza Size</th>
+            <th scope="col">Pizza Toppings</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for pizza in access_pz_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{pizza.creator}}</td>
+            <td>{{pizza.pizza_type}}</td>
+            <td>{{pizza.pizza_size}}</td>
+            <td>{{pizza.pizza_toppings}}</td>
+            <td><a href="{% url "home_app:edit" pizza.id %}" class="btn btn-primary my-2">Edit Pizza</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      </div>
+    
+    {% endblock body_block %}

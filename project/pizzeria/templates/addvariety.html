@@ -1,0 +1,63 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block title_block %}Pizzeria | Add Variety{% endblock title_block %}
+{% block body_block %}
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <h1 style="text-align:center">Add Pizza Size</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Pizza Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for size in pizza_size %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{size.pizza_size}}</td>
+                        <td><a href="{% url "home_app:delete_size" size.id %}" class="btn btn-danger my-2">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md">
+            <h1 style="text-align:center">Add Pizza Toppings</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Pizza Toppings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for topping in pizza_toppings %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{topping.pizza_toppings}}</td>
+                        <td><a href="{% url "home_app:delete_toppings" topping.id %}" class="btn btn-danger my-2">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <form method="POST" action="{% url "home_app:addvariety" %}">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Size" name="pizza_size">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Topping" name="pizza_toppings">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary my-3">Add</button>
+    </form>
+    <p>Add variety for creating pizzas</p>
+</div>
+{% endblock body_block %}
